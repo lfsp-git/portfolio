@@ -85,9 +85,6 @@ function processarComando(texto) {
             escreverLog(`>_ contact        - Mostra os meus links de contato`);
             escreverLog(`>_ msg [texto]    - Envia uma mensagem para o meu Telegram`);
             escreverLog(`>_ gui            - Inicia a Interface Gráfica de Usuário (Modo Visual)`);
-            escreverLog(`>_ scan [alvo]    - Executa Port Scanner TCP`, 'texto-alerta');
-            escreverLog(`>_ headers [alvo] - Analisa Headers OWASP`, 'texto-alerta');
-            escreverLog(`>_ xss [alvo]     - Testa injeção XSS Reflected`, 'texto-alerta');
             escreverLog(`>_ clear          - Limpa a tela do terminal`);
             break;
 
@@ -133,93 +130,14 @@ function processarComando(texto) {
             enviarMensagem(nomeRemetente.trim(), mensagemRemetente.trim());
             break;
 
-        case 'scan':
-            if (!alvo) { escreverLog(`[-] ERRO: Alvo não especificado. Exemplo: scan 127.0.0.1`, 'texto-alerta'); return; }
-            executarPortScan(alvo);
-            break;
-
-        case 'headers':
-            if (!alvo) { escreverLog(`[-] ERRO: Alvo não especificado. Exemplo: headers google.com`, 'texto-alerta'); return; }
-            executarHeaders(alvo);
-            break;
-
-        case 'xss':
-            if (!alvo) { escreverLog(`[-] ERRO: Alvo não especificado. Exemplo: xss testphp.vulnweb.com`, 'texto-alerta'); return; }
-            executarXSS(alvo);
-            break;
-
         default:
             escreverLog(`[-] Comando não reconhecido: '${acao}'. Digite 'help' para ajuda.`, 'texto-alerta');
     }
 }
 
 // ==========================================
-// 3. AS OGIVAS DE ATAQUE (Versão Terminal)
+// 3. ENVIAR MENSAGEM PARA TELEGRAM
 // ==========================================
-
-function executarPortScan(alvo) {
-    escreverLog(`>_ [+] Iniciando Port Scanner contra ${alvo}...`, "texto-alerta");
-    
-    fetch(`${API_BASE_URL}/scan`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ip: alvo }) 
-    })
-    .then(resposta => resposta.json())
-    .then(dados => {
-        escreverLog(`>_ [+] Resposta recebida. Analisando portas...`);
-        dados.scan.forEach((portaInfo, index) => {
-            setTimeout(() => {
-                let cor = portaInfo.status.includes("ABERTA") ? "texto-alerta" : "texto-sucesso";
-                escreverLog(`>_ [+] Porta ${portaInfo.porta}: ${portaInfo.status}`, cor);
-                if(index === dados.scan.length - 1) setTimeout(() => escreverLog(`>_ [✓] Varredura concluída.`, "texto-sucesso"), 1000);
-            }, index * 800);
-        });
-    })
-    .catch(() => escreverLog(`>_ [-] ERRO: Falha de comunicação com o Backend.`, "texto-alerta"));
-}
-
-function executarHeaders(alvo) {
-    escreverLog(`>_ [+] Carregando módulo de análise HTTP para ${alvo}...`);
-    
-    fetch(`${API_BASE_URL}/headers`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ alvo: alvo }) 
-    })
-    .then(resposta => resposta.json())
-    .then(dados => {
-        if (dados.erro_fatal) { escreverLog(`>_ [-] FALHA: ${dados.erro_fatal}`, "texto-alerta"); return; }
-        dados.scan.forEach((item, index) => {
-            setTimeout(() => {
-                let cor = item.status.includes("VULNERÁVEL") ? "texto-alerta" : "texto-sucesso";
-                escreverLog(`>_ [+] Escudo [${item.header}]: ${item.status}`, cor);
-                if(index === dados.scan.length - 1) setTimeout(() => escreverLog(`>_ [✓] Relatório concluído.`, "texto-sucesso"), 1000);
-            }, index * 800);
-        });
-    })
-    .catch(() => escreverLog(`>_ [-] ERRO CRÍTICO: Servidor backend offline.`, "texto-alerta"));
-}
-
-function executarXSS(alvo) {
-    escreverLog(`>_ [+] Preparando payload malicioso para injeção em ${alvo}...`);
-    
-    fetch(`${API_BASE_URL}/xss`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ alvo: alvo }) 
-    })
-    .then(resposta => resposta.json())
-    .then(dados => {
-        if (dados.erro_fatal) { escreverLog(`>_ [-] ATAQUE NEUTRALIZADO: ${dados.erro_fatal}`, "texto-alerta"); return; }
-        let cor = dados.status.includes("VULNERÁVEL") ? "texto-alerta" : "texto-sucesso";
-        escreverLog(`>_ [+] Reflexão: ${dados.status} - ${dados.detalhe}`, cor);
-    })
-    .catch(() => escreverLog(`>_ [-] ERRO CRÍTICO: Servidor backend offline.`, "texto-alerta"));
-}
-
-// BOTÃO OCULTO: Enviar mensagem direta para o servidor
-function enviarMensagem(nome, mensagem) {
     escreverLog(`>_ [+] Criptografando e enviando pacote para o QG de Leonardo...`);
     
     fetch(`${API_BASE_URL}/enviar`, {
