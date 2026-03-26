@@ -94,9 +94,13 @@ function processarComando(texto) {
         case 'gui':
             escreverLog(`>_ [!] Alternando para Interface Gráfica de Usuário (GUI)...`, 'texto-sucesso');
             setTimeout(() => {
+                // Desabilita snap scroll para melhor UX
+                document.querySelector('.scroll-container').classList.add('disable-snap');
                 document.getElementById('tela-scanner').classList.add('oculto');
                 document.getElementById('portfolio-gui').classList.remove('oculto');
-            }, 800); // Um pequeno delay para dar tempo de ler o log antes de sumir
+                // Scroll suave até a GUI
+                document.getElementById('portfolio-gui').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 800);
             break;
 
         case 'clear':
@@ -223,11 +227,24 @@ function enviarMensagem(nome, mensagem) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nome: nome, mensagem: mensagem }) 
     })
-    .then(resposta => resposta.json())
-    .then(dados => {
-        escreverLog(`>_ [✓] SUCESSO: ${dados.mensagem}`, "texto-sucesso");
+    .then(resposta => {
+        if(!resposta.ok) {
+            throw new Error(`HTTP ${resposta.status}`);
+        }
+        return resposta.json();
     })
-    .catch(() => escreverLog(`>_ [-] ERRO: QG Incomunicável. Tente pelo LinkedIn!`, "texto-alerta"));
+    .then(dados => {
+        if(dados.mensagem) {
+            escreverLog(`>_ [✓] SUCESSO: ${dados.mensagem}`, "texto-sucesso");
+        } else if(dados.erro) {
+            escreverLog(`>_ [-] ERRO: ${dados.erro}`, "texto-alerta");
+        } else {
+            escreverLog(`>_ [-] ERRO: Resposta inválida do servidor`, "texto-alerta");
+        }
+    })
+    .catch(erro => {
+        escreverLog(`>_ [-] ERRO: QG Incomunicável (${erro.message}). Tente pelo LinkedIn!`, "texto-alerta");
+    });
 }
 
 // ==========================================
@@ -258,6 +275,8 @@ tabButtons.forEach(btn => {
 
 // Botão voltar ao terminal
 document.getElementById('btn-voltar-terminal').addEventListener('click', () => {
+    // Re-habilita snap scroll
+    document.querySelector('.scroll-container').classList.remove('disable-snap');
     document.getElementById('portfolio-gui').classList.add('oculto');
     document.getElementById('tela-scanner').classList.remove('oculto');
     escreverLog(`>_ [✓] Sessão GUI encerrada. Modo texto restaurado.`, 'texto-sucesso');
@@ -268,6 +287,8 @@ document.getElementById('btn-voltar-terminal').addEventListener('click', () => {
 const btnBackFromContact = document.getElementById('btn-back-to-terminal-from-contact');
 if (btnBackFromContact) {
     btnBackFromContact.addEventListener('click', () => {
+        // Re-habilita snap scroll
+        document.querySelector('.scroll-container').classList.remove('disable-snap');
         document.getElementById('portfolio-gui').classList.add('oculto');
         document.getElementById('tela-scanner').classList.remove('oculto');
         escreverLog(`>_ [✓] Sessão GUI encerrada. Modo texto restaurado.`, 'texto-sucesso');

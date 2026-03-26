@@ -19,8 +19,13 @@ html {
 .scroll-container {
     height: 100vh;
     overflow-y: scroll;
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: y proximity;
     scroll-behavior: smooth;
+    transition: scroll-snap-type 0.3s ease;
+}
+
+.scroll-container.disable-snap {
+    scroll-snap-type: none;
 }
 
 .secao {
@@ -266,11 +271,13 @@ html {
 }
 
 .secao-gui {
+    scroll-snap-align: none;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 80vh;
     color: #fff;
+    padding: 20px;
 }
 
 .gui-container {
