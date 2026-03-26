@@ -138,6 +138,7 @@ function processarComando(texto) {
 // ==========================================
 // 3. ENVIAR MENSAGEM PARA TELEGRAM
 // ==========================================
+function enviarMensagem(nome, mensagem) {
     escreverLog(`>_ [+] Criptografando e enviando pacote para o QG de Leonardo...`);
     
     fetch(`${API_BASE_URL}/enviar`, {
