@@ -83,7 +83,7 @@ def receber_mensagem():
             "parse_mode": "Markdown"
         }
 
-        resposta = requests.post(url, json=payload, timeout=TIMEOUT_SECONDS)
+        resposta = requests.post(url, json=payload, timeout=10)
 
         if resposta.status_code == 200:
             logger.info(f"Mensagem enviada de {nome}")
