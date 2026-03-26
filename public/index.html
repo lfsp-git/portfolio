@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="scroll-container">
+
+        <section class="secao" id="tela-inicio">
+            <canvas id="matrix"></canvas>
+            <div class="hero-conteudo">
+                <h1>>_ Leonardo<span class="cursor">█</span></h1>
+                <p>Desenvolvedor | Segurança da Informação</p>
+                <a href="#tela-scanner" class="seta-descer">▼ INICIAR SISTEMA ▼</a>
+            </div>
+        </section>
+
+        <section class="secao" id="tela-scanner">
+            <div class="terminal-janela">
+                <div class="terminal-cabecalho">
+                    <div class="bolinha b-vermelha"></div>
+                    <div class="bolinha b-amarela"></div>
+                    <div class="bolinha b-verde"></div>
+                    <span class="terminal-titulo">root@lfsp-sec-server:~</span>
+                </div>
+
+                <div class="terminal-corpo" id="tela-log" style="height: 350px;">
+                    <p>>_ LFSP Security OS v1.0 carregado.</p>
+                    <p>>_ Digite <span class="texto-sucesso">'help'</span> para listar os comandos disponíveis.</p>
+                </div>
+
+                <div class="linha-comando">
+                    <span class="prompt-text">root@lfsp-sec:~#</span>
+                    <input type="text" id="terminal-input" autocomplete="off" autofocus spellcheck="false" placeholder="Digite um comando...">
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio-gui" class="oculto secao-gui">
+            <div class="gui-container">
+                <!-- HEADER DA GUI -->
+                <div class="gui-header">
+                    <img src="https://via.placeholder.com/150" alt="Foto do Leonardo" class="gui-foto">
+                    <h2>Leonardo (Leozin)</h2>
+                    <p class="gui-subtitulo">🔐 Desenvolvedor Web & 🛡️ Analista de Segurança</p>
+                </div>
+
+                <!-- NAVEGAÇÃO POR ABAS -->
+                <div class="gui-tabs">
+                    <button class="tab-btn ativo" data-tab="sobre">
+                        <span class="icon">👤</span> Sobre
+                    </button>
+                    <button class="tab-btn" data-tab="projetos">
+                        <span class="icon">🚀</span> Projetos
+                    </button>
+                    <button class="tab-btn" data-tab="habilidades">
+                        <span class="icon">⚡</span> Skills
+                    </button>
+                    <button class="tab-btn" data-tab="contato">
+                        <span class="icon">📞</span> Contato
+                    </button>
+                </div>
+
+                <!-- CONTEÚDO DAS ABAS -->
+                <div class="gui-tabs-content">
+
+                    <!-- ABA 1: SOBRE -->
+                    <div id="sobre" class="tab-content ativo">
+                        <h3>Quem Sou?</h3>
+                        <p class="bio-text">
+                            Sou um desenvolvedor full-stack apaixonado por <strong>Cibersegurança</strong> e <strong>DevSecOps</strong>. 
+                            Construo aplicações web robustas e crio ferramentas para testar seus mecanismos de defesa. 
+                            Meu objetivo é transformar linhas de código em escudos impenetráveis. 🛡️
+                        </p>
+                        
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-marker">2020</div>
+                                <div class="timeline-content">
+                                    <h4>Início da Jornada</h4>
+                                    <p>Descoberta do mundo da programação e segurança</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-marker">2022</div>
+                                <div class="timeline-content">
+                                    <h4>Primeiro Projeto Profissional</h4>
+                                    <p>Deploy de aplicações em produção</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-marker">2024</div>
+                                <div class="timeline-content">
+                                    <h4>Especialização em Pentest</h4>
+                                    <p>Certificações em Segurança Ofensiva</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ABA 2: PROJETOS -->
+                    <div id="projetos" class="tab-content">
+                        <h3>Meus Projetos</h3>
+                        <div class="projetos-grid">
+                            <div class="projeto-card">
+                                <div class="projeto-icon">🔍</div>
+                                <h4>LFSP Security Scanner</h4>
+                                <p class="projeto-desc">Ferramenta de reconhecimento de rede com Port Scanner, análise de headers OWASP e detecção de XSS.</p>
+                                <div class="projeto-tech">
+                                    <span>Python</span>
+                                    <span>Flask</span>
+                                    <span>Socket</span>
+                                </div>
+                                <a href="https://github.com" class="btn-projeto" target="_blank">Ver Código →</a>
+                            </div>
+
+                            <div class="projeto-card">
+                                <div class="projeto-icon">🌐</div>
+                                <h4>Portfolio Interativo</h4>
+                                <p class="projeto-desc">Interface hacker-style com terminal simulado, matriz digital e GUI profissional integrados.</p>
+                                <div class="projeto-tech">
+                                    <span>HTML5</span>
+                                    <span>CSS3</span>
+                                    <span>JavaScript</span>
+                                </div>
+                                <a href="https://github.com" class="btn-projeto" target="_blank">Ver Código →</a>
+                            </div>
+
+                            <div class="projeto-card">
+                                <div class="projeto-icon">🐳</div>
+                                <h4>DevSecOps Pipeline</h4>
+                                <p class="projeto-desc">CI/CD automatizado com testes, scanning de segurança e deploy em containers Docker.</p>
+                                <div class="projeto-tech">
+                                    <span>Docker</span>
+                                    <span>GitHub Actions</span>
+                                    <span>Bandit</span>
+                                </div>
+                                <a href="https://github.com" class="btn-projeto" target="_blank">Ver Código →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ABA 3: HABILIDADES -->
+                    <div id="habilidades" class="tab-content">
+                        <h3>Arsenal de Habilidades</h3>
+                        
+                        <div class="skills-categorias">
+                            <div class="skill-categoria">
+                                <h4>💻 Backend</h4>
+                                <div class="skill-bar-grupo">
+                                    <div class="skill-bar">
+                                        <div class="skill-label">Python</div>
+                                        <div class="skill-progress">
+                                            <div class="skill-fill" style="width: 95%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-label">Flask</div>
+                                        <div class="skill-progress">
+                                            <div class="skill-fill" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-label">SQL</div>
+                                        <div class="skill-progress">
+                                            <div class="skill-fill" style="width: 80%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="skill-categoria">
+                                <h4>🎨 Frontend</h4>
+                                <div class="skill-bar-grupo">
+                                    <div class="skill-bar">
+                                        <div class="skill-label">JavaScript</div>
+                                        <div class="skill-progress">
+                                            <div class="skill-fill" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-label">HTML5</div>
+                                        <div class="skill-progress">
+                                            <div class="skill-fill" style="width: 95%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-label">CSS3</div>
+                                        <div class="skill-progress">
+                                            <div class="skill-fill" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="skill-categoria">
+                                <h4>🔐 Segurança</h4>
+                                <div class="skill-bar-grupo">
+                                    <div class="skill-bar">
+                                        <div class="skill-label">Pentest Web</div>
+                                        <div class="skill-progress">
+                                            <div class="skill-fill" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-label">OWASP</div>
+                                        <div class="skill-progress">
+                                            <div class="skill-fill" style="width: 80%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-label">DevSecOps</div>
+                                        <div class="skill-progress">
+                                            <div class="skill-fill" style="width: 75%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="skill-categoria">
+                                <h4>🛠️ DevOps</h4>
+                                <div class="skill-bar-grupo">
+                                    <div class="skill-bar">
+                                        <div class="skill-label">Docker</div>
+                                        <div class="skill-progress">
+                                            <div class="skill-fill" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-label">Git</div>
+                                        <div class="skill-progress">
+                                            <div class="skill-fill" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-label">CI/CD</div>
+                                        <div class="skill-progress">
+                                            <div class="skill-fill" style="width: 80%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ABA 4: CONTATO -->
+                    <div id="contato" class="tab-content">
+                        <h3>Me Encontre!</h3>
+                        
+                        <div class="contact-grid">
+                            <a href="https://linkedin.com/in/leonardofsp" target="_blank" class="contact-card">
+                                <div class="contact-icon">💼</div>
+                                <h4>LinkedIn</h4>
+                                <p>Conecte-se comigo</p>
+                            </a>
+
+                            <a href="https://github.com/lfsp-git" target="_blank" class="contact-card">
+                                <div class="contact-icon">🐙</div>
+                                <h4>GitHub</h4>
+                                <p>Veja meus projetos</p>
+                            </a>
+
+                            <a href="mailto:svmpvix@gmail.com" class="contact-card">
+                                <div class="contact-icon">📧</div>
+                                <h4>Email</h4>
+                                <p>svmpvix@gmail.com</p>
+                            </a>
+
+                            <a href="https://t.me/username" target="_blank" class="contact-card">
+                                <div class="contact-icon">📱</div>
+                                <h4>Telegram</h4>
+                                <p>Chat comigo direto</p>
+                            </a>
+                        </div>
+
+                        <div class="contato-form">
+                            <p class="form-info">💡 Ou envie uma mensagem via terminal com: <code>msg Seu Nome | Sua mensagem</code></p>
+                            <button id="btn-back-to-terminal-from-contact" class="btn-form-secondary">Voltar ao Terminal →</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- BOTÕES DE AÇÃO-->
+                <div class="gui-footer">
+                    <button id="btn-voltar-terminal" class="btn-hacker">← Retornar ao Terminal</button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+name: Docker Build Check
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build Docker image
+      # Usamos aspas simples para garantir que o GitHub leia o comando como uma string única
+      run: 'docker build -t lfsp-sec-tool:test .'
+
+    - name: Test CLI Mode
+      # Testamos se o container roda o comando de ajuda corretamente
+      run: 'docker run lfsp-sec-tool:test --help'
